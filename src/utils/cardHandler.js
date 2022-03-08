@@ -16,30 +16,19 @@ const VALUES = [
 ];
 
 function createCardDeck() {
-  let deck = [];
-  for (let suit of SUITS) {
-    for (let value of VALUES) {
-      deck.push({ suit, value });
-    }
-  }
-  return deck;
+  return SUITS.flatMap((suit) => {
+    return VALUES.map((value) => {
+      return { suit, value };
+    });
+  });
 }
-
 const cardDeck = createCardDeck();
 
 function shuffleDeck(deck) {
   const currentDeck = [...deck];
-  let counter = currentDeck.length,
-    temp,
-    i;
+  const shuffledDeck = currentDeck.sort(() => 0.5 - Math.random());
 
-  while (counter) {
-    i = Math.floor(Math.random() * counter--);
-    temp = currentDeck[counter];
-    currentDeck[counter] = currentDeck[i];
-    currentDeck[i] = temp;
-  }
-  return currentDeck;
+  return shuffledDeck;
 }
 
 function getFirst21Items(items) {

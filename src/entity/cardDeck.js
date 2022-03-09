@@ -27,4 +27,4 @@ function shuffleDeck(deck) {
   return shuffledDeck;
 }
 
-export { cardDeck, shuffleDeck };
+export { createCardDeck, cardDeck, shuffleDeck };

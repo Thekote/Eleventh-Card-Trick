@@ -16,11 +16,7 @@ const VALUES = [
 ];
 
 function createCardDeck() {
-  return SUITS.flatMap((suit) => {
-    return VALUES.map((value) => {
-      return { suit, value };
-    });
-  });
+  return SUITS.flatMap((suit) => VALUES.map((value) => ({ suit, value })));
 }
 const cardDeck = createCardDeck();
 
@@ -31,8 +27,4 @@ function shuffleDeck(deck) {
   return shuffledDeck;
 }
 
-function getFirst21Items(items) {
-  return items.slice(0, 21);
-}
-
-export { cardDeck, shuffleDeck, getFirst21Items };
+export { cardDeck, shuffleDeck };

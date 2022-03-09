@@ -1,4 +1,5 @@
-import { cardDeck, shuffleDeck, getFirst21Items } from "./cardHandler";
+import { cardDeck, shuffleDeck } from "./cardDeck";
+import { getArrayItems } from "../utils/arrayItems";
 
 describe("cardDeck", () => {
   it("should return the created deck", () => {
@@ -12,7 +13,7 @@ describe("shuffleDeck", () => {
   });
 });
 
-describe("getFirst21Items", () => {
+describe("getArrayItems", () => {
   it("should return the first 21 items", () => {
     const initalItems = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -22,6 +23,6 @@ describe("getFirst21Items", () => {
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     ];
 
-    expect(getFirst21Items(initalItems)).toEqual(expectedItems);
+    expect(getArrayItems(initalItems)).toEqual(expectedItems);
   });
 });

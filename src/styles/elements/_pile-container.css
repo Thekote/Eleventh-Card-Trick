@@ -1,0 +1,8 @@
+.pile__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 16px;
+  margin: 3em;
+  gap: 4em;
+}

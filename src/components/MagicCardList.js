@@ -1,40 +1,32 @@
+import { useState } from "react";
 import { cardDeck, shuffleDeck } from "../entity/cardDeck";
 import { getArrayItems } from "../utils/arrayItems";
+import { magicTrick } from "../utils/magicTrick";
 
 const RenderMagicCardList = () => {
-  const magicDeck = getArrayItems(shuffleDeck(cardDeck));
-  const firstCardPile = magicDeck.slice(0, 7);
-  const secondCardPile = magicDeck.slice(7, 14);
-  const thirdCardPile = magicDeck.slice(14, 22);
+  const [magicDeck, setMagicDeck] = useState(() => {
+    const x = getArrayItems(shuffleDeck(cardDeck));
+    const firstCardPile = x.slice(0, 7);
+    const secondCardPile = x.slice(7, 14);
+    const thirdCardPile = x.slice(14, 22);
+
+    return [firstCardPile, secondCardPile, thirdCardPile];
+  });
 
   return (
     <div className="container">
-      <div className="pile__container">
-        <h2>Row 1</h2>
-        {firstCardPile.map(({ suit, value }) => (
-          <div className="card" key={`${value} ${suit}`}>
-            {value}-{suit}
+      {magicDeck.map((entry, index) => {
+        return (
+          <div className="pile__container">
+            <h2>Row {index + 1}</h2>
+            {entry.map(({ suit, value }) => (
+              <div className="card" key={`${value} ${suit}`}>
+                {value}-{suit}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      <div className="pile__container">
-        <h2>Row 2</h2>
-        {secondCardPile.map(({ suit, value }) => (
-          <div className="card" key={`${value} ${suit}`}>
-            {value}-{suit}
-          </div>
-        ))}
-      </div>
-
-      <div className="pile__container">
-        <h2>Row 3</h2>
-        {thirdCardPile.map(({ suit, value }) => (
-          <div className="card" key={`${value} ${suit}`}>
-            {value}-{suit}
-          </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };

@@ -1,40 +1,40 @@
+import { useState } from "react";
 import { cardDeck, shuffleDeck } from "../entity/cardDeck";
 import { getArrayItems } from "../utils/arrayItems";
+import { reduceArray } from "../utils/reduceArray";
+import { sliceArray } from "../utils/sliceArray";
+
+const makeMagicDeck = getArrayItems(shuffleDeck(cardDeck));
+const initalDeckState = sliceArray(makeMagicDeck);
 
 const RenderMagicCardList = () => {
-  const magicDeck = getArrayItems(shuffleDeck(cardDeck));
-  const firstCardPile = magicDeck.slice(0, 7);
-  const secondCardPile = magicDeck.slice(7, 14);
-  const thirdCardPile = magicDeck.slice(14, 22);
+  const [magicDeck, setMagicDeck] = useState(initalDeckState);
+
+  function handleClick(rowIndex) {
+    const updatedDeck = reduceArray(magicDeck, rowIndex);
+    setMagicDeck(updatedDeck);
+  }
 
   return (
     <div className="container">
-      <div className="pile__container">
-        <h2>Row 1</h2>
-        {firstCardPile.map(({ suit, value }) => (
-          <div className="card" key={`${value} ${suit}`}>
-            {value}-{suit}
+      {magicDeck.map((entry, rowIndex) => {
+        return (
+          <div className="pile__container" key={`card_pile_${rowIndex}`}>
+            <button
+              onClick={() => {
+                handleClick(rowIndex);
+              }}
+            >
+              My Card is Here!
+            </button>
+            {entry.map(({ suit, value }) => (
+              <div className="card" key={`${value} ${suit}`}>
+                {value}-{suit}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      <div className="pile__container">
-        <h2>Row 2</h2>
-        {secondCardPile.map(({ suit, value }) => (
-          <div className="card" key={`${value} ${suit}`}>
-            {value}-{suit}
-          </div>
-        ))}
-      </div>
-
-      <div className="pile__container">
-        <h2>Row 3</h2>
-        {thirdCardPile.map(({ suit, value }) => (
-          <div className="card" key={`${value} ${suit}`}>
-            {value}-{suit}
-          </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };

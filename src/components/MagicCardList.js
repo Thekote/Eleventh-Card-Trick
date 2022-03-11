@@ -1,24 +1,32 @@
 import { useState } from "react";
 import { cardDeck, shuffleDeck } from "../entity/cardDeck";
 import { getArrayItems } from "../utils/arrayItems";
-import { magicTrick } from "../utils/magicTrick";
+import { reduceArray } from "../utils/reduceArray";
+import { sliceArray } from "../utils/sliceArray";
+
+const makeMagicDeck = getArrayItems(shuffleDeck(cardDeck));
+const initalDeckState = sliceArray(makeMagicDeck);
 
 const RenderMagicCardList = () => {
-  const [magicDeck, setMagicDeck] = useState(() => {
-    const x = getArrayItems(shuffleDeck(cardDeck));
-    const firstCardPile = x.slice(0, 7);
-    const secondCardPile = x.slice(7, 14);
-    const thirdCardPile = x.slice(14, 22);
+  const [magicDeck, setMagicDeck] = useState(initalDeckState);
 
-    return [firstCardPile, secondCardPile, thirdCardPile];
-  });
+  function handleClick(rowIndex) {
+    const updatedDeck = reduceArray(magicDeck, rowIndex);
+    setMagicDeck(updatedDeck);
+  }
 
   return (
     <div className="container">
-      {magicDeck.map((entry, index) => {
+      {magicDeck.map((entry, rowIndex) => {
         return (
-          <div className="pile__container">
-            <h2>Row {index + 1}</h2>
+          <div className="pile__container" key={`card_pile_${rowIndex}`}>
+            <button
+              onClick={() => {
+                handleClick(rowIndex);
+              }}
+            >
+              My Card is Here!
+            </button>
             {entry.map(({ suit, value }) => (
               <div className="card" key={`${value} ${suit}`}>
                 {value}-{suit}

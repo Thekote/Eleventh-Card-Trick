@@ -1,12 +1,12 @@
-function magicTrick(array, rowIndex) {
+function reduceArray(array, elementIndex) {
   const arrayCopy = [...array];
-  const magicArray = [
-    arrayCopy[rowIndex === 0 ? 1 : 0],
-    arrayCopy[rowIndex],
-    arrayCopy[rowIndex === 2 ? 1 : 2],
+  const makeReducedArray = [
+    arrayCopy[elementIndex === 0 ? 1 : 0],
+    arrayCopy[elementIndex],
+    arrayCopy[elementIndex === 2 ? 1 : 2],
   ].flat();
-
-  return magicArray.reduce(
+  return makeReducedArray.reduce(
+    // eslint-disable-next-line array-callback-return
     (acc, element, index) => {
       if (index % 3 === 0) {
         return [[element, ...acc[0]], acc[1], acc[2]];
@@ -20,4 +20,4 @@ function magicTrick(array, rowIndex) {
   );
 }
 
-export { magicTrick };
+export { reduceArray };
